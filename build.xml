@@ -1,6 +1,6 @@
-<project name="ExempleAnt" default="compile" basedir=".">
+<project name="GameOfLife" default="compile" basedir=".">
   <property name="projet.sources.dir" value="src"/>
-  <property name="projet.bin.dir" value="bin"/>
+  <property name="projet.bin.dir" value="build"/>
   <property name="projet.lib.dir" value="lib"/>
   <path id="projet.classpath">
     <fileset dir="${projet.lib.dir}">
@@ -19,26 +19,26 @@
     <mkdir dir="${basedir}/gen"/>
   </target>
   <target name="run" description="execution" depends="compile">
-    <java classname="ExampleAnt" fork="true">
+    <java classname="./life/GameOfLife" fork="true">
       <classpath refid="projet.classpath"/>
     </java>
   </target>
   <target name="lance" description="execution" depends="compile">
-    <java classname="ExempleAnt" fork="true">
+    <java classname="./life/GUI" fork="true">
       <classpath refid="projet.classpath"/>
     </java>
   </target>
-  <target name="test" description="execution" depends="compile">
-    <java classname="ExempleAntTest" fork="true">
+  <target name="lance" description="execution" depends="compile">
+    <java classname="./life/Main" fork="true">
       <classpath refid="projet.classpath"/>
     </java>
   </target>
   <target name="javadoc">
-    <javadoc sourcepath="src" destdir="doc">
+    <!-- <javadoc sourcepath="src" destdir="doc">
       <fileset dir="src" defaultexcludes="yes">
         <include name="**"/>
       </fileset>
-    </javadoc>
+    </javadoc> -->
   </target>
   <target name="packaging" depends="compile">
      <jar jarfile="test.jar" basedir="${projet.bin.dir}" manifest="${basedir}/Manifest.txt"/>
