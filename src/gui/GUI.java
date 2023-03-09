@@ -1,49 +1,37 @@
 package gui;
-import javax.swing.*;
+import life.GameOfLife;
 import java.awt.*;
-import life.*;
-class GUI {
-    public static void main(String args[]) {
+import javax.swing.*;
+public class GUI extends JPanel{
+    GameOfLife game = new GameOfLife(3,3);
+    public GUI(GameOfLife game){       
+        setSize( 700, 700 );
+        setVisible( true );
+        this.game = game;
+        this.game.trucDeBase(0);
 
-        //Creating the Frame
-        JFrame frame = new JFrame("Jeu de la vie ©");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1280, 720);
+    } 
+    @Override
+    public void paintComponent( Graphics g){  
+        int x = 30;
+        for(int[] nbr : this.game.grille ){
+            int y = 30;
+            for(int nbr2 : nbr){
+                if(nbr2 == 1){
+                    g.setColor(Color.BLACK);
+                    g.fillRect(x, y, 30, 30);
+                    g.drawRect( x, y, 30, 30 );
+                }
+                else{
+                    g.setColor(Color.BLACK);
+                    g.drawRect( x, y, 30, 30 );
+                }
+                y+=30;
+            }
+            x+=30;
+        }
 
-        //Creating the MenuBar and adding components
-        JMenuBar menu = new JMenuBar();
-        JMenu para = new JMenu("Paramètres");
-        JMenu m2 = new JMenu("Squeezie");
-        menu.add(para);
-        menu.add(m2);
-        JMenuItem tailleX = new JMenuItem("Taille en X");
-        JMenuItem tailleY = new JMenuItem("Taille en Y");
-        JMenuItem vie = new JMenuItem("Vie");
-        JMenuItem mort = new JMenuItem("Mort");
-        JMenuItem pub = new JMenuItem("alyx.live cliquez ici YoKo");
-        tailleX.showInputDialog("Entrez la taille en X");
-        para.add(vie);
-        para.add(mort);
-        m2.add(pub);
-        para.add(tailleX);
-        para.add(tailleY);
+    } 
+  
+} 
 
-
-        JPanel panel = new JPanel(); 
-        JLabel label = new JLabel("Entre la vie");
-        JTextField tf = new JTextField(4);
-        JButton send = new JButton("selectionner");
-        JButton reset = new JButton("Reset");
-        panel.add(label); 
-        panel.add(tf);
-        panel.add(send);
-        panel.add(reset);
-
-        JTextArea ta = new JTextArea();
-
-        frame.getContentPane().add(BorderLayout.SOUTH, panel);
-        frame.getContentPane().add(BorderLayout.NORTH, menu);
-        frame.getContentPane().add(BorderLayout.CENTER, ta);
-        frame.setVisible(true);
-    }
-}
